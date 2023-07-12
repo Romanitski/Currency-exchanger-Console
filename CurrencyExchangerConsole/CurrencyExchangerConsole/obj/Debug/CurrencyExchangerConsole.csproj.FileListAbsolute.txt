@@ -1,0 +1,7 @@
+C:\Users\Valera\Desktop\CurrencyExchangerConsole\CurrencyExchangerConsole\bin\Debug\CurrencyExchangerConsole.exe.config
+C:\Users\Valera\Desktop\CurrencyExchangerConsole\CurrencyExchangerConsole\bin\Debug\CurrencyExchangerConsole.exe
+C:\Users\Valera\Desktop\CurrencyExchangerConsole\CurrencyExchangerConsole\bin\Debug\CurrencyExchangerConsole.pdb
+C:\Users\Valera\Desktop\CurrencyExchangerConsole\CurrencyExchangerConsole\obj\Debug\CurrencyExchangerConsole.csproj.AssemblyReference.cache
+C:\Users\Valera\Desktop\CurrencyExchangerConsole\CurrencyExchangerConsole\obj\Debug\CurrencyExchangerConsole.csproj.CoreCompileInputs.cache
+C:\Users\Valera\Desktop\CurrencyExchangerConsole\CurrencyExchangerConsole\obj\Debug\CurrencyExchangerConsole.exe
+C:\Users\Valera\Desktop\CurrencyExchangerConsole\CurrencyExchangerConsole\obj\Debug\CurrencyExchangerConsole.pdb
