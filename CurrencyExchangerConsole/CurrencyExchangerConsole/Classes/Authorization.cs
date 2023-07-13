@@ -66,7 +66,7 @@ namespace CurrencyExchangerConsole.Classes
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.Message);
             }
         }
     }
