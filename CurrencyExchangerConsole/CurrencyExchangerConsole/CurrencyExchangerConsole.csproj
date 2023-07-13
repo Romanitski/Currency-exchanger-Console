@@ -84,6 +84,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Authorization.cs" />
+    <Compile Include="Classes\Coefficients.cs" />
+    <Compile Include="Classes\Currencies.cs" />
     <Compile Include="Classes\Operator.cs" />
     <Compile Include="Classes\OperatorEditing.cs" />
     <Compile Include="Classes\PasswordHasher.cs" />
