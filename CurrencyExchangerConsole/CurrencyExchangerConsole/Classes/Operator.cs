@@ -4,6 +4,13 @@ namespace CurrencyExchangerConsole.Classes
 {
     public class Operator
     {
+        private static Operator instance;
+
+        public static Operator GetInstance()
+        {
+            return instance ?? (instance = new Operator());
+        }
+
         public Operator() { }
 
         public Operator(string operatorName, string operatorPassword)

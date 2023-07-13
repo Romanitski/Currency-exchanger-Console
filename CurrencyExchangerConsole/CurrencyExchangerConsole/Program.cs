@@ -14,13 +14,21 @@ namespace CurrencyExchangerConsole
         {
             Operator user = new Operator();
             Registration registration = new Registration();
+            Classes.Authorization authorization = new Classes.Authorization();
 
             user.operatorName = "Namesss";
             user.operatorPassword = "1234";
             user.operatorType = "A";
 
-            registration.RegistrationFunction(user.operatorName, user.operatorPassword, user.operatorType);
-            //registration.RegistrationFunction("Namess", "1234", "A");
+            //registration.RegistrationFunction(user.operatorName, user.operatorPassword, user.operatorType);
+            //registration.RegistrationFunction("TestA", "1234", "A");
+
+            //authorization.AuthorizationFunction("TestA","1234");
+            //authorization.AuthorizationFunction("TestB","1234");
+            //authorization.AuthorizationFunction("TestC","1234");
+            authorization.AuthorizationFunction("TestERROR","1234");
+            //authorization.AuthorizationFunction(user.operatorName, user.operatorPassword);
+
         }
     }
 }
