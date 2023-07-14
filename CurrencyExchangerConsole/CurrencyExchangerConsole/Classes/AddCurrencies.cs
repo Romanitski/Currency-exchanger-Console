@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Data.SqlClient;
 
 namespace CurrencyExchangerConsole.Classes
@@ -9,7 +8,7 @@ namespace CurrencyExchangerConsole.Classes
         public void AddCurrenciesFunction(int DigitalCurrencyCode, string AlphabeticCurrencyCode, string CurrencyName, string NumberOfCurrencyUnits)
         {
             string connectionString = "Data Source=.\\SQLEXPRESS;Database=CurrencyExchanger_db;Trusted_Connection=True;";
-            string addCurrenciesQuery = "INSERT INTO Currencies VALUES(@DigitalCurrencyCode, @AlphabeticCurrencyCode, @CurrencyName, @NumberOfCurrencyUnits)";
+            string addCurrenciesQuery = "INSERT INTO Currencies VALUES(@DigitalCurrencyCode, @AlphabeticCurrencyCode, @CurrencyName, @NumberOfCurrencyUnits);";
 
             SqlConnection sqlConnection = new SqlConnection(connectionString);
 

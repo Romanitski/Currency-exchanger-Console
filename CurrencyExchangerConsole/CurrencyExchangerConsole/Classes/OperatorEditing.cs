@@ -27,8 +27,11 @@ namespace CurrencyExchangerConsole.Classes
                     ParameterName = "@OperatorName",
                     Value = OperatorName
                 };
+
                 commandGetId.Parameters.Add(name);
+
                 object idValue = commandGetId.ExecuteScalar();
+
                 int idValueInt = Convert.ToInt32((idValue));
 
                 sqlConnection.Close();

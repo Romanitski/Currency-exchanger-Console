@@ -83,6 +83,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\AddCoefficient.cs" />
     <Compile Include="Classes\AddCurrencies.cs" />
     <Compile Include="Classes\Authorization.cs" />
     <Compile Include="Classes\Coefficients.cs" />
