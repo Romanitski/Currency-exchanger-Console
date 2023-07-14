@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 namespace CurrencyExchangerConsole.Classes
 {
-    public class AddRatePurchaseSale
+    public class AddRateConversion
     {
         private int GetDigitalCurrencyCode(string AlphabeticCurrencyCode)
         {
@@ -119,9 +119,9 @@ namespace CurrencyExchangerConsole.Classes
             }
         }
 
-        public void AddRatePurchaseSaleFunction(string AlphabeticCurrencyCode, string RatePurchase, string RateSale, DateTime DateOfTheStartAction)
+        public void AddRateConversionFunction(string AlphabeticCurrencyCode, string RateConversion, DateTime DateOfTheStartAction)
         {
-            string addRateQuery = "INSERT INTO Rate_Purchase_Sale VALUES(@OperatorId, @DigitalCurrencyCode, @RatePurchase, @RateSale, @Coefficient, @DateOfIssue, @DateOfTheStartAction);";
+            string addRateQuery = "INSERT INTO Rate_Of_Conversion VALUES(@OperatorId, @DigitalCurrencyCode, @RateConversion, @Coefficient, @DateOfIssue, @DateOfTheStartAction);";
 
             using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
             {
@@ -131,7 +131,7 @@ namespace CurrencyExchangerConsole.Classes
 
                     int digitalCode = GetDigitalCurrencyCode(AlphabeticCurrencyCode);
                     int id = GetOperatorId("TestB");
-                    string coefficientValue = GetCoefficient(AlphabeticCurrencyCode, "B");
+                    string coefficientValue = GetCoefficient(AlphabeticCurrencyCode, "D");
 
                     SqlCommand addRateCommand = new SqlCommand(addRateQuery, sqlConnection);
                     SqlParameter operatorId = new SqlParameter
@@ -144,15 +144,10 @@ namespace CurrencyExchangerConsole.Classes
                         ParameterName = "@DigitalCurrencyCode",
                         Value = digitalCode
                     };
-                    SqlParameter ratePurchase = new SqlParameter
+                    SqlParameter rateConversion = new SqlParameter
                     {
-                        ParameterName = "@RatePurchase",
-                        Value = RatePurchase
-                    };
-                    SqlParameter rateSale = new SqlParameter
-                    {
-                        ParameterName = "@RateSale",
-                        Value = RateSale
+                        ParameterName = "@RateConversion",
+                        Value = RateConversion
                     };
                     SqlParameter coefficient = new SqlParameter
                     {
@@ -172,8 +167,7 @@ namespace CurrencyExchangerConsole.Classes
 
                     addRateCommand.Parameters.Add(operatorId);
                     addRateCommand.Parameters.Add(digitalCodeParameter);
-                    addRateCommand.Parameters.Add(ratePurchase);
-                    addRateCommand.Parameters.Add(rateSale);
+                    addRateCommand.Parameters.Add(rateConversion);
                     addRateCommand.Parameters.Add(coefficient);
                     addRateCommand.Parameters.Add(dateOfIssue);
                     addRateCommand.Parameters.Add(dateOfTheStartAction);
@@ -182,13 +176,13 @@ namespace CurrencyExchangerConsole.Classes
 
                     sqlConnection.Close();
 
-                    Console.WriteLine($"The purchase rate - {RatePurchase} and the sale rate - {RateSale} for the {AlphabeticCurrencyCode} currency were successfully added!");
+                    Console.WriteLine($"The conversion rate - {RateConversion} for the {AlphabeticCurrencyCode} currency were successfully added!");
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
-            }   
+            }
         }
     }
 }

@@ -19,6 +19,7 @@ namespace CurrencyExchangerConsole
             AddCurrencies addCurrencies = new AddCurrencies();
             AddCoefficient addCoefficient = new AddCoefficient();
             AddRatePurchaseSale purchaseSale = new AddRatePurchaseSale();
+            AddRateConversion rateConversion = new AddRateConversion();
 
             user.operatorName = "Namesss";
             user.operatorPassword = "1234";
@@ -52,7 +53,9 @@ namespace CurrencyExchangerConsole
             //addCoefficient.AddCoefficientFunction("1,07", "EUR", "Sale", DateTime.Now);
             //addCoefficient.AddCoefficientFunction("1,08", "EUR", "Conversion", DateTime.Now);
 
-            purchaseSale.AddRatePurchaseSaleFunction("RUB", "1,99", "2,33", DateTime.Now);
+            //purchaseSale.AddRatePurchaseSaleFunction("RUB", "2,99", "3,33", DateTime.Now);
+
+            rateConversion.AddRateConversionFunction("RUB", "3,42", DateTime.Now);
         }
     }
 }
