@@ -18,6 +18,7 @@ namespace CurrencyExchangerConsole
             OperatorEditing operatorEditing = new OperatorEditing();
             AddCurrencies addCurrencies = new AddCurrencies();
             AddCoefficient addCoefficient = new AddCoefficient();
+            AddRatePurchaseSale purchaseSale = new AddRatePurchaseSale();
 
             user.operatorName = "Namesss";
             user.operatorPassword = "1234";
@@ -25,6 +26,8 @@ namespace CurrencyExchangerConsole
 
             //registration.RegistrationFunction(user.operatorName, user.operatorPassword, user.operatorType);
             //registration.RegistrationFunction("TestA", "1234", "A");
+            //registration.RegistrationFunction("TestB", "1234", "B");
+            //registration.RegistrationFunction("TestC", "1234", "C");
 
             //authorization.AuthorizationFunction("TestA","1234");
             //authorization.AuthorizationFunction("TestB","1234");
@@ -37,8 +40,19 @@ namespace CurrencyExchangerConsole
             //addCurrencies.AddCurrenciesFunction(840, "USD", "Доллар США", "1");
             //addCurrencies.AddCurrenciesFunction(978, "EUR", "Евро", "1");
 
-            addCoefficient.AddCoefficientFunction("1,03", "RUB", "Purchase", DateTime.Now);
+            //addCoefficient.AddCoefficientFunction("1,03", "RUB", "Purchase", DateTime.Now);
+            //addCoefficient.AddCoefficientFunction("1,04", "RUB", "Sale", DateTime.Now);
+            //addCoefficient.AddCoefficientFunction("1,05", "RUB", "Conversion", DateTime.Now);
 
+            //addCoefficient.AddCoefficientFunction("1,01", "USD", "Purchase", DateTime.Now);
+            //addCoefficient.AddCoefficientFunction("1,02", "USD", "Sale", DateTime.Now);
+            //addCoefficient.AddCoefficientFunction("1,011", "USD", "Conversion", DateTime.Now);
+
+            //addCoefficient.AddCoefficientFunction("1,06", "EUR", "Purchase", DateTime.Now);
+            //addCoefficient.AddCoefficientFunction("1,07", "EUR", "Sale", DateTime.Now);
+            //addCoefficient.AddCoefficientFunction("1,08", "EUR", "Conversion", DateTime.Now);
+
+            purchaseSale.AddRatePurchaseSaleFunction("RUB", "1,99", "2,33", DateTime.Now);
         }
     }
 }
