@@ -16,6 +16,7 @@ namespace CurrencyExchangerConsole
             Registration registration = new Registration();
             Classes.Authorization authorization = new Classes.Authorization();
             OperatorEditing operatorEditing = new OperatorEditing();
+            AddCurrencies addCurrencies = new AddCurrencies();
 
             user.operatorName = "Namesss";
             user.operatorPassword = "1234";
@@ -30,7 +31,10 @@ namespace CurrencyExchangerConsole
             //authorization.AuthorizationFunction("TestERROR","1234");
             //authorization.AuthorizationFunction(user.operatorName, user.operatorPassword);
 
-            operatorEditing.OperatorEditingFunction("Nameszshjb", "Nams", "1234", "C");
+            //operatorEditing.OperatorEditingFunction("Nameszshjb", "Nams", "1234", "C");
+
+            //addCurrencies.AddCurrenciesFunction(840, "USD", "Доллар США", "1");
+            addCurrencies.AddCurrenciesFunction(978, "EUR", "Евро", "1");
 
         }
     }
