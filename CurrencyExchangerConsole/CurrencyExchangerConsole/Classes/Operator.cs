@@ -26,17 +26,27 @@ namespace CurrencyExchangerConsole.Classes
             this.operatorType = operatorType;
         }
 
-        public Operator(int operatorId, string operatorName, string operatorPassword, string operatorType)
+        public Operator(string operatorName, string operatorPassword, string operatorType, bool operatorActive)
+        {
+            this.operatorName = operatorName;
+            this.operatorPassword = operatorPassword;
+            this.operatorType = operatorType;
+            this.operatorActive = operatorActive;
+        }
+
+        public Operator(int operatorId, string operatorName, string operatorPassword, string operatorType, bool operatorActive)
         {
             this.operatorId = operatorId;
             this.operatorName = operatorName;
             this.operatorPassword = operatorPassword;
             this.operatorType = operatorType;
+            this.operatorActive = operatorActive;
         }
 
         public int operatorId { get; set; }
         public string operatorName { get; set; }
         public string operatorPassword { get; set; }
         public string operatorType { get; set; }
+        public bool operatorActive { get; set; }
     }
 }

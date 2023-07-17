@@ -30,7 +30,7 @@ namespace CurrencyExchangerConsole.Classes
             }
         }
 
-        public void RegistrationFunction(string OperatorName, string OperatorPassword, string OperatorType)
+        public void RegistrationFunction(string OperatorName, string OperatorPassword, string OperatorType, bool OperatorActive)
         {
             string registrationProcedure = "RegistrationProcedure";
 
@@ -54,6 +54,7 @@ namespace CurrencyExchangerConsole.Classes
                         sqlCommand.Parameters.Add("@Operator_Name", SqlDbType.VarChar).Value = OperatorName;
                         sqlCommand.Parameters.Add("@Operator_Password", SqlDbType.VarChar).Value = PasswordHasher.GetHesh(OperatorPassword);
                         sqlCommand.Parameters.Add("@Operator_Type", SqlDbType.VarChar).Value = OperatorType;
+                        sqlCommand.Parameters.Add("@Operator_Active", SqlDbType.Bit).Value = OperatorActive;
 
                         sqlDataAdapter.SelectCommand = sqlCommand;
                         sqlDataAdapter.Fill(dataTable);

@@ -21,14 +21,10 @@ namespace CurrencyExchangerConsole
             AddRatePurchaseSale purchaseSale = new AddRatePurchaseSale();
             AddRateConversion rateConversion = new AddRateConversion();
 
-            user.operatorName = "Namesss";
-            user.operatorPassword = "1234";
-            user.operatorType = "A";
-
-            //registration.RegistrationFunction(user.operatorName, user.operatorPassword, user.operatorType);
-            //registration.RegistrationFunction("TestA", "1234", "A");
-            //registration.RegistrationFunction("TestB", "1234", "B");
-            //registration.RegistrationFunction("TestC", "1234", "C");
+            //registration.RegistrationFunction("TestA", "1234", "A", 1);
+            //registration.RegistrationFunction("TestB", "1234", "B", 1);
+            //registration.RegistrationFunction("TestC", "1234", "C", 1);
+            registration.RegistrationFunction("TestInActive", "1234", "A", false);
 
             //authorization.AuthorizationFunction("TestA","1234");
             //authorization.AuthorizationFunction("TestB","1234");
@@ -55,7 +51,7 @@ namespace CurrencyExchangerConsole
 
             //purchaseSale.AddRatePurchaseSaleFunction("RUB", "2,99", "3,33", DateTime.Now);
 
-            rateConversion.AddRateConversionFunction("RUB", "3,52", DateTime.Now);
+            //rateConversion.AddRateConversionFunction("RUB", "3,52", DateTime.Now);
         }
     }
 }
