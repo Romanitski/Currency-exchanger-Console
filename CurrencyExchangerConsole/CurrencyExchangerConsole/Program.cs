@@ -19,6 +19,7 @@ namespace CurrencyExchangerConsole
             AddCurrencies addCurrencies = new AddCurrencies();
             AddCoefficient addCoefficient = new AddCoefficient();
             AddRatePurchase ratePurchase = new AddRatePurchase();
+            AddRateSale rateSale = new AddRateSale();
             AddRateConversion rateConversion = new AddRateConversion();
 
             //registration.RegistrationFunction("TestA", "1234", "A", 1);
@@ -51,9 +52,13 @@ namespace CurrencyExchangerConsole
             //addCoefficient.AddCoefficientFunction("1,07", "EUR", "Sale", DateTime.Now);
             //addCoefficient.AddCoefficientFunction("1,08", "EUR", "Conversion", DateTime.Now);
 
-            ratePurchase.AddRatePurchaseFunction("RUB", "3,01", DateTime.Now);
-            ratePurchase.AddRatePurchaseFunction("USD", "3,21", DateTime.Now);
-            ratePurchase.AddRatePurchaseFunction("EUR", "3,47", DateTime.Now);
+            //ratePurchase.AddRatePurchaseFunction("RUB", "3,01", DateTime.Now);
+            //ratePurchase.AddRatePurchaseFunction("USD", "3,21", DateTime.Now);
+            //ratePurchase.AddRatePurchaseFunction("EUR", "3,47", DateTime.Now);
+
+            //rateSale.AddRateSaleFunction("RUB", "2,95", DateTime.Now);
+            //rateSale.AddRateSaleFunction("USD", "3,02", DateTime.Now);
+            //rateSale.AddRateSaleFunction("EUR", "3,15", DateTime.Now);
 
             //rateConversion.AddRateConversionFunction("RUB", "3,52", DateTime.Now);
         }

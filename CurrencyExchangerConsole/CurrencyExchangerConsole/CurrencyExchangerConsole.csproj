@@ -87,6 +87,7 @@
     <Compile Include="Classes\AddCurrencies.cs" />
     <Compile Include="Classes\AddRateConversion.cs" />
     <Compile Include="Classes\AddRatePurchase.cs" />
+    <Compile Include="Classes\AddRateSale.cs" />
     <Compile Include="Classes\Authorization.cs" />
     <Compile Include="Classes\Coefficients.cs" />
     <Compile Include="Classes\Currencies.cs" />

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
-
 namespace CurrencyExchangerConsole.Classes
 {
-    public class AddRatePurchase
+    public class AddRateSale
     {
         private int GetDigitalCurrencyCode(string AlphabeticCurrencyCode)
         {
@@ -121,7 +120,7 @@ namespace CurrencyExchangerConsole.Classes
 
         private int GetCoefficientId(string AlphabeticCurrencyCode, string OperationType, string coefficientValueStr)
         {
-            string getCoefficientId = "SELECT CoefficientId FROM Coefficients WHERE Digital_Currency_Code = @DigitalCode Operation_Type = @OperationType AND AND Coefficient = @CoefficientValue;";
+            string getCoefficientId = "SELECT CoefficientId FROM Coefficients WHERE Digital_Currency_Code = @DigitalCode AND Operation_Type = @OperationType AND Coefficient = @CoefficientValue;";
 
             using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
             {
@@ -168,9 +167,9 @@ namespace CurrencyExchangerConsole.Classes
             }
         }
 
-        public void AddRatePurchaseFunction(string AlphabeticCurrencyCode, string RatePurchase, DateTime DateOfTheStartAction)
+        public void AddRateSaleFunction(string AlphabeticCurrencyCode, string RateSale, DateTime DateOfTheStartAction)
         {
-            string addRateQuery = "INSERT INTO Rate_Purchase VALUES(@OperatorId, @DigitalCurrencyCode, @RatePurchase, @CoefficientId, @DateOfIssue, @DateOfTheStartAction);";
+            string addRateQuery = "INSERT INTO Rate_Sale VALUES(@OperatorId, @DigitalCurrencyCode, @RateSale, @CoefficientId, @DateOfIssue, @DateOfTheStartAction);";
 
             using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
             {
@@ -180,8 +179,8 @@ namespace CurrencyExchangerConsole.Classes
 
                     int digitalCode = GetDigitalCurrencyCode(AlphabeticCurrencyCode);
                     int id = GetOperatorId("TestB");
-                    string coefficientValue = GetCoefficient(AlphabeticCurrencyCode, "B");
-                    int coefficientIdValue = GetCoefficientId(AlphabeticCurrencyCode, "B", coefficientValue);
+                    string coefficientValue = GetCoefficient(AlphabeticCurrencyCode, "C");
+                    int coefficientIdValue = GetCoefficientId(AlphabeticCurrencyCode, "C", coefficientValue);
 
                     SqlCommand addRateCommand = new SqlCommand(addRateQuery, sqlConnection);
                     SqlParameter operatorId = new SqlParameter
@@ -194,10 +193,10 @@ namespace CurrencyExchangerConsole.Classes
                         ParameterName = "@DigitalCurrencyCode",
                         Value = digitalCode
                     };
-                    SqlParameter ratePurchase = new SqlParameter
+                    SqlParameter rateSale = new SqlParameter
                     {
-                        ParameterName = "@RatePurchase",
-                        Value = RatePurchase
+                        ParameterName = "@Ratesale",
+                        Value = RateSale
                     };
                     SqlParameter coefficient = new SqlParameter
                     {
@@ -217,7 +216,7 @@ namespace CurrencyExchangerConsole.Classes
 
                     addRateCommand.Parameters.Add(operatorId);
                     addRateCommand.Parameters.Add(digitalCodeParameter);
-                    addRateCommand.Parameters.Add(ratePurchase);
+                    addRateCommand.Parameters.Add(rateSale);
                     addRateCommand.Parameters.Add(coefficient);
                     addRateCommand.Parameters.Add(dateOfIssue);
                     addRateCommand.Parameters.Add(dateOfTheStartAction);
@@ -226,13 +225,13 @@ namespace CurrencyExchangerConsole.Classes
 
                     sqlConnection.Close();
 
-                    Console.WriteLine($"The purchase rate - {RatePurchase} for the {AlphabeticCurrencyCode} currency were successfully added!");
+                    Console.WriteLine($"The sale rate - {RateSale} for the {AlphabeticCurrencyCode} currency were successfully added!");
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
-            }   
+            }
         }
     }
 }
