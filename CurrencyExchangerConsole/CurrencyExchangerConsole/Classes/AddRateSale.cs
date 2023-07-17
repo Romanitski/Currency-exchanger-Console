@@ -175,6 +175,8 @@ namespace CurrencyExchangerConsole.Classes
             {
                 try
                 {
+                    //Make a selection for the active coefficient!!!
+
                     sqlConnection.Open();
 
                     int digitalCode = GetDigitalCurrencyCode(AlphabeticCurrencyCode);

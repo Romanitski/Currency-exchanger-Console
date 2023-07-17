@@ -6,6 +6,8 @@ namespace CurrencyExchangerConsole.Classes
 {
     public class AddCoefficient
     {
+        private Coefficients op;
+
         private int GetDigitalCurrencyCode(string AlphabeticCurrencyCode)
         {
             string getCode = "SELECT Digital_Currency_Code FROM Currencies WHERE Alphabetic_Currency_Code = @AlphabeticCurrencyCode";
@@ -76,9 +78,11 @@ namespace CurrencyExchangerConsole.Classes
             }
         }
 
-        public void AddCoefficientFunction(string Coefficient, string AlphabeticCurrencyCode, string OperationType, DateTime DateOfTheStartAction)
+        public void AddCoefficientFunction(string Coefficient, string AlphabeticCurrencyCode, string OperationType, bool CoefficientActive)
         {
-            string addCoefficientQuery = "INSERT INTO Coefficients VALUES(@Coefficient, @DigitalCurrencyCode, @OperationType, @DateOfIssue, @DateOfTheStartAction);";
+            string addCoefficientQuery = "INSERT INTO Coefficients VALUES(@Coefficient, @DigitalCurrencyCode, @OperationType, @DateOfIssue, @CoefficientActive);";
+
+            op = Coefficients.GetInstance();
 
             using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
             {
@@ -110,23 +114,23 @@ namespace CurrencyExchangerConsole.Classes
                         ParameterName = "@DateOfIssue",
                         Value = DateTime.Now
                     };
-                    SqlParameter dateOfTheStartAction = new SqlParameter
+                    SqlParameter coefficientActive = new SqlParameter
                     {
-                        ParameterName = "@DateOfTheStartAction",
-                        Value = DateOfTheStartAction
+                        ParameterName = "@CoefficientActive",
+                        Value = CoefficientActive
                     };
 
                     addCommand.Parameters.Add(coefficient);
                     addCommand.Parameters.Add(digitalCurrencyCode);
                     addCommand.Parameters.Add(operationType);
                     addCommand.Parameters.Add(dateOfIssue);
-                    addCommand.Parameters.Add(dateOfTheStartAction);
+                    addCommand.Parameters.Add(coefficientActive);
 
                     addCommand.ExecuteNonQuery();
 
                     sqlConnection.Close();
 
-                    Console.WriteLine($"Coefficient {Coefficient} with parameters - {AlphabeticCurrencyCode} \\ {OperationType} has been added!\nEffective date of the coefficient = {DateOfTheStartAction}");
+                    Console.WriteLine($"Coefficient {Coefficient} with parameters - {AlphabeticCurrencyCode} \\ {OperationType} has been added!\n");
                 }
                 catch (Exception ex)
                 {

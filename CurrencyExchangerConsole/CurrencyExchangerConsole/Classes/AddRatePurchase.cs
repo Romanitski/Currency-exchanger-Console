@@ -121,7 +121,7 @@ namespace CurrencyExchangerConsole.Classes
 
         private int GetCoefficientId(string AlphabeticCurrencyCode, string OperationType, string coefficientValueStr)
         {
-            string getCoefficientId = "SELECT CoefficientId FROM Coefficients WHERE Digital_Currency_Code = @DigitalCode Operation_Type = @OperationType AND AND Coefficient = @CoefficientValue;";
+            string getCoefficientId = "SELECT CoefficientId FROM Coefficients WHERE Digital_Currency_Code = @DigitalCode AND Operation_Type = @OperationType AND Coefficient = @CoefficientValue;";
 
             using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
             {
@@ -176,6 +176,8 @@ namespace CurrencyExchangerConsole.Classes
             {
                 try
                 {
+                    //Make a selection for the active coefficient!!!
+
                     sqlConnection.Open();
 
                     int digitalCode = GetDigitalCurrencyCode(AlphabeticCurrencyCode);
