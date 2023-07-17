@@ -26,13 +26,14 @@ namespace CurrencyExchangerConsole
             //registration.RegistrationFunction("TestC", "1234", "C", 1);
             //registration.RegistrationFunction("TestInActive", "1234", "A", false);
 
-            authorization.AuthorizationFunction("TestA","1234");
-            authorization.AuthorizationFunction("TestB","1234");
-            authorization.AuthorizationFunction("TestC","1234");
-            authorization.AuthorizationFunction("TestInActive", "1234");
-            authorization.AuthorizationFunction("TestError", "1234");
+            //authorization.AuthorizationFunction("TestA","1234");
+            //authorization.AuthorizationFunction("TestB","1234");
+            //authorization.AuthorizationFunction("TestC","1234");
+            //authorization.AuthorizationFunction("TestInActive", "1234");
+            //authorization.AuthorizationFunction("TestError", "1234");
 
-            //operatorEditing.OperatorEditingFunction("Nameszshjb", "Nams", "1234", "C");
+            operatorEditing.OperatorActiveEditingfunction("TestInActive", false);
+            operatorEditing.OperatorEditingFunction("Nams", "TestInActive", "1234", "A");
 
             //addCurrencies.AddCurrenciesFunction(840, "USD", "Доллар США", "1");
             //addCurrencies.AddCurrenciesFunction(978, "EUR", "Евро", "1");

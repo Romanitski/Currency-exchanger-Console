@@ -69,9 +69,51 @@ namespace CurrencyExchangerConsole.Classes
             }
         }
 
+        public void OperatorActiveEditingfunction(string OperatorName, bool NewOperatorActive)
+        {
+            string editingQuery = "UPDATE Operators SET Operator_Active = @OperatorActive WHERE Operator_Id = @OperatorId;";
+
+            op = Operator.GetInstance();
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
+            {
+                try
+                {
+                    sqlConnection.Open();
+
+                    int baseOperatorId = GetIdFunction(OperatorName);
+
+                    SqlCommand commandEditActive = new SqlCommand(editingQuery, sqlConnection);
+                    SqlParameter operatorActive= new SqlParameter
+                    {
+                        ParameterName = "@OperatorActive",
+                        Value = NewOperatorActive
+                    };
+                    SqlParameter operatorId = new SqlParameter
+                    {
+                        ParameterName = "@OperatorId",
+                        Value = baseOperatorId
+                    };
+
+                    commandEditActive.Parameters.Add(operatorActive);
+                    commandEditActive.Parameters.Add(operatorId);
+
+                    commandEditActive.ExecuteNonQuery();
+
+                    sqlConnection.Close();
+
+                    Console.WriteLine($"Operator - {OperatorName} is active = {NewOperatorActive}");
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
+
         public void OperatorEditingFunction(string OperatorName, string NewOperatorName, string NewOperatorPassword, string NewOperatorType)
         {
-            string editingQuery = "UPDATE Operators SET Operator_Name = @OperatorName, Operator_Password = @OperatorPassword, Operator_Type = @OperatorType WHERE Operator_Id = @OperatorId";
+            string editingQuery = "UPDATE Operators SET Operator_Name = @OperatorName, Operator_Password = @OperatorPassword, Operator_Type = @OperatorType WHERE Operator_Id = @OperatorId;";
 
             op = Operator.GetInstance();
 
@@ -115,7 +157,7 @@ namespace CurrencyExchangerConsole.Classes
 
                         sqlConnection.Close();
 
-                        Console.WriteLine($"Old operator info : nema={OperatorName}\nNew operator info : name={NewOperatorName}");
+                        Console.WriteLine($"Old operator info : nema = {OperatorName}\nNew operator info : name = {NewOperatorName}");
                     }
                 }
                 catch (Exception ex)
