@@ -8,114 +8,114 @@ namespace CurrencyExchangerConsole.Classes
     {
         private int GetDigitalCurrencyCode(string AlphabeticCurrencyCode)
         {
-            string connectionString = "Data Source=.\\SQLEXPRESS;Database=CurrencyExchanger_db;Trusted_Connection=True;";
             string getCode = "SELECT Digital_Currency_Code FROM Currencies WHERE Alphabetic_Currency_Code = @AlphabeticCurrencyCode;";
 
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-
-            try
+            using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
             {
-                sqlConnection.Open();
-
-                SqlCommand commandGetCode = new SqlCommand(getCode, sqlConnection);
-                SqlParameter code = new SqlParameter
+                try
                 {
-                    ParameterName = "@AlphabeticCurrencyCode",
-                    Value = AlphabeticCurrencyCode
-                };
+                    sqlConnection.Open();
 
-                commandGetCode.Parameters.Add(code);
+                    SqlCommand commandGetCode = new SqlCommand(getCode, sqlConnection);
+                    SqlParameter code = new SqlParameter
+                    {
+                        ParameterName = "@AlphabeticCurrencyCode",
+                        Value = AlphabeticCurrencyCode
+                    };
 
-                object codeValue = commandGetCode.ExecuteScalar();
+                    commandGetCode.Parameters.Add(code);
 
-                int codeValueInt = Convert.ToInt32((codeValue));
+                    object codeValue = commandGetCode.ExecuteScalar();
 
-                sqlConnection.Close();
-                return (codeValueInt);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                sqlConnection.Close();
-                return (0);
+                    int codeValueInt = Convert.ToInt32((codeValue));
+
+                    sqlConnection.Close();
+                    return (codeValueInt);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    sqlConnection.Close();
+                    return (0);
+                }
             }
         }
 
         private int GetOperatorId(string OperatorName)
         {
-            string connectionString = "Data Source=.\\SQLEXPRESS;Database=CurrencyExchanger_db;Trusted_Connection=True;";
             string getId = "SELECT Operator_Id FROM Operators WHERE Operator_Name = @OperatorName;";
 
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-
-            try
+            using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
             {
-                sqlConnection.Open();
-
-                SqlCommand commandGetId = new SqlCommand(getId, sqlConnection);
-                SqlParameter id = new SqlParameter
+                try
                 {
-                    ParameterName = "@OperatorName",
-                    Value = OperatorName
-                };
+                    sqlConnection.Open();
 
-                commandGetId.Parameters.Add(id);
+                    SqlCommand commandGetId = new SqlCommand(getId, sqlConnection);
+                    SqlParameter id = new SqlParameter
+                    {
+                        ParameterName = "@OperatorName",
+                        Value = OperatorName
+                    };
 
-                object idValue = commandGetId.ExecuteScalar();
+                    commandGetId.Parameters.Add(id);
 
-                int idValueInt = Convert.ToInt32((idValue));
+                    object idValue = commandGetId.ExecuteScalar();
 
-                sqlConnection.Close();
-                return (idValueInt);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                sqlConnection.Close();
-                return (0);
+                    int idValueInt = Convert.ToInt32((idValue));
+
+                    sqlConnection.Close();
+                    return (idValueInt);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    sqlConnection.Close();
+                    return (0);
+                }
             }
         }
 
         private string GetCoefficient(string AlphabeticCurrencyCode, string OperationType)
         {
-            string connectionString = "Data Source=.\\SQLEXPRESS;Database=CurrencyExchanger_db;Trusted_Connection=True;";
             string getCoefficient = "SELECT Coefficient FROM Coefficients WHERE Digital_Currency_Code = @DigitalCode AND Operation_Type = @OperationType;";
 
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-
-            try
+            using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
             {
-                sqlConnection.Open();
-
-                int digitalCode = GetDigitalCurrencyCode(AlphabeticCurrencyCode);
-
-                SqlCommand commandGetCoefficient = new SqlCommand(getCoefficient, sqlConnection);
-                SqlParameter digitalCodeParameter = new SqlParameter
+                try
                 {
-                    ParameterName = "@DigitalCode",
-                    Value = digitalCode
-                };
-                SqlParameter operationType = new SqlParameter
+                    sqlConnection.Open();
+
+                    int digitalCode = GetDigitalCurrencyCode(AlphabeticCurrencyCode);
+
+                    SqlCommand commandGetCoefficient = new SqlCommand(getCoefficient, sqlConnection);
+                    SqlParameter digitalCodeParameter = new SqlParameter
+                    {
+                        ParameterName = "@DigitalCode",
+                        Value = digitalCode
+                    };
+                    SqlParameter operationType = new SqlParameter
+                    {
+                        ParameterName = "@OperationType",
+                        Value = OperationType
+                    };
+
+                    commandGetCoefficient.Parameters.Add(digitalCodeParameter);
+                    commandGetCoefficient.Parameters.Add(operationType);
+
+                    object coefficientValue = commandGetCoefficient.ExecuteScalar();
+
+                    string coefficientValueStr = coefficientValue.ToString();
+
+                    sqlConnection.Close();
+                    return (coefficientValueStr);
+                }
+                catch (Exception ex)
                 {
-                    ParameterName = "@OperationType",
-                    Value = OperationType
-                };
-
-                commandGetCoefficient.Parameters.Add(digitalCodeParameter);
-                commandGetCoefficient.Parameters.Add(operationType);
-
-                object coefficientValue = commandGetCoefficient.ExecuteScalar();
-
-                string coefficientValueStr = coefficientValue.ToString();
-
-                sqlConnection.Close();
-                return (coefficientValueStr);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                sqlConnection.Close();
-                return (null);
+                    Console.WriteLine(ex.Message);
+                    sqlConnection.Close();
+                    return (null);
+                }
             }
         }
 

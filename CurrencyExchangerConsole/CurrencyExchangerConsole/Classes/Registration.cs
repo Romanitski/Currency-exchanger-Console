@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Configuration;
 using System.Data.SqlClient;
 
 namespace CurrencyExchangerConsole.Classes
@@ -31,41 +32,41 @@ namespace CurrencyExchangerConsole.Classes
 
         public void RegistrationFunction(string OperatorName, string OperatorPassword, string OperatorType)
         {
-            string connectionString = "Data Source=.\\SQLEXPRESS;Database=CurrencyExchanger_db;Trusted_Connection=True;";
             string registrationProcedure = "RegistrationProcedure";
 
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-
-            try
+            using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
             {
-                sqlConnection.Open();
-
-                if (OperatorExists(sqlConnection, OperatorName))
+                try
                 {
-                    Console.WriteLine("Such a name already exists!");
+                    sqlConnection.Open();
+
+                    if (OperatorExists(sqlConnection, OperatorName))
+                    {
+                        Console.WriteLine("Such a name already exists!");
+                    }
+                    else
+                    {
+                        DataTable dataTable = new DataTable();
+                        SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+                        SqlCommand sqlCommand = new SqlCommand(registrationProcedure, sqlConnection);
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                        sqlCommand.Parameters.Add("@Operator_Name", SqlDbType.VarChar).Value = OperatorName;
+                        sqlCommand.Parameters.Add("@Operator_Password", SqlDbType.VarChar).Value = PasswordHasher.GetHesh(OperatorPassword);
+                        sqlCommand.Parameters.Add("@Operator_Type", SqlDbType.VarChar).Value = OperatorType;
+
+                        sqlDataAdapter.SelectCommand = sqlCommand;
+                        sqlDataAdapter.Fill(dataTable);
+
+                        Console.WriteLine("Registration sucsessful!");
+                    }
+
+                    sqlConnection.Close();
                 }
-                else
+                catch (Exception ex)
                 {
-                    DataTable dataTable = new DataTable();
-                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
-                    SqlCommand sqlCommand = new SqlCommand(registrationProcedure, sqlConnection);
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-
-                    sqlCommand.Parameters.Add("@Operator_Name", SqlDbType.VarChar).Value = OperatorName;
-                    sqlCommand.Parameters.Add("@Operator_Password", SqlDbType.VarChar).Value = PasswordHasher.GetHesh(OperatorPassword);
-                    sqlCommand.Parameters.Add("@Operator_Type", SqlDbType.VarChar).Value = OperatorType;
-
-                    sqlDataAdapter.SelectCommand = sqlCommand;
-                    sqlDataAdapter.Fill(dataTable);
-
-                    Console.WriteLine("Registration sucsessful!");
+                    Console.WriteLine(ex.Message);
                 }
-
-                sqlConnection.Close();
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
             }
         }
     }

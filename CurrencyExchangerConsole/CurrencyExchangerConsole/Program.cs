@@ -55,7 +55,7 @@ namespace CurrencyExchangerConsole
 
             //purchaseSale.AddRatePurchaseSaleFunction("RUB", "2,99", "3,33", DateTime.Now);
 
-            rateConversion.AddRateConversionFunction("RUB", "3,42", DateTime.Now);
+            rateConversion.AddRateConversionFunction("RUB", "3,52", DateTime.Now);
         }
     }
 }

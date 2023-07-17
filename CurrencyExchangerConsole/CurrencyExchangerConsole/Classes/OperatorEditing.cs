@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Configuration;
 using System.Data.SqlClient;
 
 namespace CurrencyExchangerConsole.Classes
@@ -10,38 +11,38 @@ namespace CurrencyExchangerConsole.Classes
 
         private int GetIdFunction(string OperatorName)
         {
-            string connectionString = "Data Source=.\\SQLEXPRESS;Database=CurrencyExchanger_db;Trusted_Connection=True;";
             string getOperatorId = "SELECT Operator_Id FROM Operators WHERE Operator_Name = @OperatorName;";
 
             op = Operator.GetInstance();
 
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-
-            try
+            using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
             {
-                sqlConnection.Open();
-
-                SqlCommand commandGetId = new SqlCommand(getOperatorId, sqlConnection);
-                SqlParameter name = new SqlParameter
+                try
                 {
-                    ParameterName = "@OperatorName",
-                    Value = OperatorName
-                };
+                    sqlConnection.Open();
 
-                commandGetId.Parameters.Add(name);
+                    SqlCommand commandGetId = new SqlCommand(getOperatorId, sqlConnection);
+                    SqlParameter name = new SqlParameter
+                    {
+                        ParameterName = "@OperatorName",
+                        Value = OperatorName
+                    };
 
-                object idValue = commandGetId.ExecuteScalar();
+                    commandGetId.Parameters.Add(name);
 
-                int idValueInt = Convert.ToInt32((idValue));
+                    object idValue = commandGetId.ExecuteScalar();
 
-                sqlConnection.Close();
-                return (idValueInt);
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                sqlConnection.Close();
-                return (0);
+                    int idValueInt = Convert.ToInt32((idValue));
+
+                    sqlConnection.Close();
+                    return (idValueInt);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    sqlConnection.Close();
+                    return (0);
+                }
             }
         }
 
@@ -70,58 +71,58 @@ namespace CurrencyExchangerConsole.Classes
 
         public void OperatorEditingFunction(string OperatorName, string NewOperatorName, string NewOperatorPassword, string NewOperatorType)
         {
-            string connectionString = "Data Source=.\\SQLEXPRESS;Database=CurrencyExchanger_db;Trusted_Connection=True;";
             string editingQuery = "UPDATE Operators SET Operator_Name = @OperatorName, Operator_Password = @OperatorPassword, Operator_Type = @OperatorType WHERE Operator_Id = @OperatorId";
 
             op = Operator.GetInstance();
 
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
-
-            try
+            using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
             {
-                sqlConnection.Open();
-
-                if(CheckOperatorName(sqlConnection, NewOperatorName))
+                try
                 {
-                    Console.WriteLine("Such a name already exists!");
+                    sqlConnection.Open();
+
+                    if (CheckOperatorName(sqlConnection, NewOperatorName))
+                    {
+                        Console.WriteLine("Such a name already exists!");
+                    }
+                    else
+                    {
+                        int baseOperatorId = GetIdFunction(OperatorName);
+
+                        SqlCommand commandEdit = new SqlCommand(editingQuery, sqlConnection);
+                        SqlParameter operatorName = new SqlParameter
+                        {
+                            ParameterName = "@OperatorName",
+                            Value = NewOperatorName
+                        };
+                        SqlParameter operatorType = new SqlParameter
+                        {
+                            ParameterName = "@OperatorType",
+                            Value = NewOperatorType
+                        };
+                        SqlParameter operatorId = new SqlParameter
+                        {
+                            ParameterName = "@OperatorId",
+                            Value = baseOperatorId
+                        };
+
+                        commandEdit.Parameters.Add(operatorName);
+                        commandEdit.Parameters.Add("@OperatorPassword", SqlDbType.VarChar).Value = PasswordHasher.GetHesh(NewOperatorPassword);
+                        commandEdit.Parameters.Add(operatorType);
+                        commandEdit.Parameters.Add(operatorId);
+
+                        commandEdit.ExecuteNonQuery();
+
+                        sqlConnection.Close();
+
+                        Console.WriteLine($"Old operator info : nema={OperatorName}\nNew operator info : name={NewOperatorName}");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    int baseOperatorId = GetIdFunction(OperatorName);
-
-                    SqlCommand commandEdit = new SqlCommand(editingQuery, sqlConnection);
-                    SqlParameter operatorName = new SqlParameter
-                    {
-                        ParameterName = "@OperatorName",
-                        Value = NewOperatorName
-                    };
-                    SqlParameter operatorType = new SqlParameter
-                    {
-                        ParameterName = "@OperatorType",
-                        Value = NewOperatorType
-                    };
-                    SqlParameter operatorId = new SqlParameter
-                    {
-                        ParameterName = "@OperatorId",
-                        Value = baseOperatorId
-                    };
-
-                    commandEdit.Parameters.Add(operatorName);
-                    commandEdit.Parameters.Add("@OperatorPassword", SqlDbType.VarChar).Value = PasswordHasher.GetHesh(NewOperatorPassword);
-                    commandEdit.Parameters.Add(operatorType);
-                    commandEdit.Parameters.Add(operatorId);
-
-                    commandEdit.ExecuteNonQuery();
-
-                    sqlConnection.Close();
-
-                    Console.WriteLine($"Old operator info : nema={OperatorName}\nNew operator info : name={NewOperatorName}");
+                    Console.WriteLine(ex.Message);
                 }
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            }  
         }
     }
 }
