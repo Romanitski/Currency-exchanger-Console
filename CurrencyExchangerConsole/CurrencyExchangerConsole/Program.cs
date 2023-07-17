@@ -24,13 +24,13 @@ namespace CurrencyExchangerConsole
             //registration.RegistrationFunction("TestA", "1234", "A", 1);
             //registration.RegistrationFunction("TestB", "1234", "B", 1);
             //registration.RegistrationFunction("TestC", "1234", "C", 1);
-            registration.RegistrationFunction("TestInActive", "1234", "A", false);
+            //registration.RegistrationFunction("TestInActive", "1234", "A", false);
 
-            //authorization.AuthorizationFunction("TestA","1234");
-            //authorization.AuthorizationFunction("TestB","1234");
-            //authorization.AuthorizationFunction("TestC","1234");
-            //authorization.AuthorizationFunction("TestERROR","1234");
-            //authorization.AuthorizationFunction(user.operatorName, user.operatorPassword);
+            authorization.AuthorizationFunction("TestA","1234");
+            authorization.AuthorizationFunction("TestB","1234");
+            authorization.AuthorizationFunction("TestC","1234");
+            authorization.AuthorizationFunction("TestInActive", "1234");
+            authorization.AuthorizationFunction("TestError", "1234");
 
             //operatorEditing.OperatorEditingFunction("Nameszshjb", "Nams", "1234", "C");
 

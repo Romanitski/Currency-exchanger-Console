@@ -46,13 +46,14 @@ namespace CurrencyExchangerConsole.Classes
                             op.operatorName = currentOperator.GetString(1);
                             op.operatorPassword = currentOperator.GetString(2);
                             op.operatorType = currentOperator.GetString(3);
+                            op.operatorActive = currentOperator.GetBoolean(4);
                         }
                     }
                     currentOperator.Close();
 
                     sqlConnection.Close();
 
-                    if (operatorExist)
+                    if (operatorExist && op.operatorActive != false)
                     {
                         if (op.operatorType == "A") Console.WriteLine($"{op.operatorName} = Administrator!\n");
                         else if (op.operatorType == "B") Console.WriteLine($"{op.operatorName} = Course operator!\n");
