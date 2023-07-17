@@ -76,7 +76,7 @@ namespace CurrencyExchangerConsole.Classes
             }
         }
 
-        public void AddCoefficientFunction(string Coefficient, string AlphabeticCurrencyCode, string OperationName, DateTime DateOfTheStartAction)
+        public void AddCoefficientFunction(string Coefficient, string AlphabeticCurrencyCode, string OperationType, DateTime DateOfTheStartAction)
         {
             string addCoefficientQuery = "INSERT INTO Coefficients VALUES(@Coefficient, @DigitalCurrencyCode, @OperationType, @DateOfIssue, @DateOfTheStartAction);";
 
@@ -87,7 +87,7 @@ namespace CurrencyExchangerConsole.Classes
                     sqlConnection.Open();
 
                     int digitalCode = GetDigitalCurrencyCode(AlphabeticCurrencyCode);
-                    string operationTypeStr = GetOperationType(OperationName);
+                    string operationTypeStr = GetOperationType(OperationType);
 
                     SqlCommand addCommand = new SqlCommand(addCoefficientQuery, sqlConnection);
                     SqlParameter coefficient = new SqlParameter
@@ -126,7 +126,7 @@ namespace CurrencyExchangerConsole.Classes
 
                     sqlConnection.Close();
 
-                    Console.WriteLine($"Coefficient {Coefficient} with parameters - {AlphabeticCurrencyCode} \\ {OperationName} has been added!\nEffective date of the coefficient = {DateOfTheStartAction}");
+                    Console.WriteLine($"Coefficient {Coefficient} with parameters - {AlphabeticCurrencyCode} \\ {OperationType} has been added!\nEffective date of the coefficient = {DateOfTheStartAction}");
                 }
                 catch (Exception ex)
                 {
