@@ -42,7 +42,7 @@ namespace CurrencyExchangerConsole
 
             //addCoefficient.AddCoefficientPurchaseSaleFunction("1,011", "RUB", "Purchase", true);
             //addCoefficient.AddCoefficientPurchaseSaleFunction("1,012", "RUB", "Sale", true);
-            //addCoefficient.AddCoefficientConversionFunction("1,013", "RUB", "USD", "Conversion", true);
+            //addCoefficient.AddCoefficientConversionFunction("1,029", "RUB", "USD", "Conversion", true);
             //addCoefficient.AddCoefficientConversionFunction("1,014", "RUB", "EUR", "Conversion", true);
 
             //addCoefficient.AddCoefficientPurchaseSaleFunction("1,0132", "USD", "Purchase", true);

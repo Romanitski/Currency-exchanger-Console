@@ -78,6 +78,99 @@ namespace CurrencyExchangerConsole.Classes
             }
         }
 
+        private int GetCoefficientIdConversion(string AlphabeticCurrencyCode, string SecondAlphabeticCurrencyCode, string OperationType)
+        {
+            string chekQuery = "SELECT CoefficientId FROM Coefficients WHERE Digital_Currency_Code = @DigitalCode AND Second_Digital_Currency_Code = @SecondDigitalCode AND Operation_Type = @OperationType AND Coefficient_Active = @CoefficientActive;";
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
+            {
+                try
+                {
+                    sqlConnection.Open();
+
+                    int digitalCodeValue = GetDigitalCurrencyCode(AlphabeticCurrencyCode);
+                    int secondDigitalCodeValue = GetDigitalCurrencyCode(SecondAlphabeticCurrencyCode);
+                    string operationTypeStr = GetOperationType(OperationType);
+
+                    SqlCommand addCoefficientIdCommand = new SqlCommand(chekQuery, sqlConnection);
+                    SqlParameter digitalCodeParam = new SqlParameter
+                    {
+                        ParameterName = "@DigitalCode",
+                        Value = digitalCodeValue
+                    };
+                    SqlParameter secondDigitalCodeParam = new SqlParameter
+                    {
+                        ParameterName = "@SecondDigitalCode",
+                        Value = secondDigitalCodeValue
+                    };
+                    SqlParameter operationTypeParam = new SqlParameter
+                    {
+                        ParameterName = "@OperationType",
+                        Value = operationTypeStr
+                    };
+                    SqlParameter coefficientParam = new SqlParameter
+                    {
+                        ParameterName = "@CoefficientActive",
+                        Value = true
+                    };
+
+                    addCoefficientIdCommand.Parameters.Add(digitalCodeParam);
+                    addCoefficientIdCommand.Parameters.Add(secondDigitalCodeParam);
+                    addCoefficientIdCommand.Parameters.Add(operationTypeParam);
+                    addCoefficientIdCommand.Parameters.Add(coefficientParam);
+
+                    object idValue = addCoefficientIdCommand.ExecuteScalar();
+
+                    int idValueInt = Convert.ToInt32((idValue));
+
+                    sqlConnection.Close();
+
+                    return (idValueInt);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return (0);
+                }
+            }
+        }
+
+        private void UpdateCoefficientActiveConversion(int CoefficientId)
+        {
+            string updateQuery = "UPDATE Coefficients SET Coefficient_Active = @CoefficientActive WHERE CoefficientId = @CoefficientId;";
+
+            using(SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
+            {
+                try
+                {
+                    sqlConnection.Open();
+
+                    SqlCommand updateCommand = new SqlCommand(updateQuery, sqlConnection);
+                    SqlParameter coefficientActiveParam = new SqlParameter
+                    {
+                        ParameterName = "@CoefficientActive",
+                        Value = false
+                    };
+                    SqlParameter coefficientIdParam = new SqlParameter
+                    {
+                        ParameterName = "@CoefficientId",
+                        Value = CoefficientId
+                    };
+
+                    updateCommand.Parameters.Add(coefficientActiveParam);
+                    updateCommand.Parameters.Add(coefficientIdParam);
+
+                    updateCommand.ExecuteNonQuery();
+
+                    sqlConnection.Close();
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
+
         public void AddCoefficientPurchaseSaleFunction(string Coefficient, string AlphabeticCurrencyCode, string OperationType, bool CoefficientActive)
         {
             string addCoefficientQuery = "INSERT INTO Coefficients VALUES(@Coefficient, @DigitalCurrencyCode, '0', @OperationType, @DateOfIssue, @CoefficientActive);";
@@ -154,6 +247,8 @@ namespace CurrencyExchangerConsole.Classes
                     int digitalCode = GetDigitalCurrencyCode(AlphabeticCurrencyCode);
                     int secondDigitalCode = GetDigitalCurrencyCode(SecondAlphabeticCurrencyCode);
                     string operationTypeStr = GetOperationType(OperationType);
+                    int coefficientId = GetCoefficientIdConversion(AlphabeticCurrencyCode, SecondAlphabeticCurrencyCode, OperationType);
+                    UpdateCoefficientActiveConversion(coefficientId);
 
                     SqlCommand addCommand = new SqlCommand(addCoefficientQuery, sqlConnection);
                     SqlParameter coefficient = new SqlParameter
