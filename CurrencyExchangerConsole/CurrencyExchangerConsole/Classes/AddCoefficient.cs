@@ -78,9 +78,9 @@ namespace CurrencyExchangerConsole.Classes
             }
         }
 
-        public void AddCoefficientFunction(string Coefficient, string AlphabeticCurrencyCode, string OperationType, bool CoefficientActive)
+        public void AddCoefficientPurchaseSaleFunction(string Coefficient, string AlphabeticCurrencyCode, string OperationType, bool CoefficientActive)
         {
-            string addCoefficientQuery = "INSERT INTO Coefficients VALUES(@Coefficient, @DigitalCurrencyCode, @OperationType, @DateOfIssue, @CoefficientActive);";
+            string addCoefficientQuery = "INSERT INTO Coefficients VALUES(@Coefficient, @DigitalCurrencyCode, '0', @OperationType, @DateOfIssue, @CoefficientActive);";
 
             op = Coefficients.GetInstance();
 
@@ -131,6 +131,74 @@ namespace CurrencyExchangerConsole.Classes
                     sqlConnection.Close();
 
                     Console.WriteLine($"Coefficient {Coefficient} with parameters - {AlphabeticCurrencyCode} \\ {OperationType} has been added!\n");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
+
+        public void AddCoefficientConversionFunction(string Coefficient, string AlphabeticCurrencyCode, string SecondAlphabeticCurrencyCode, string OperationType, bool CoefficientActive)
+        {
+            string addCoefficientQuery = "INSERT INTO Coefficients VALUES(@Coefficient, @DigitalCurrencyCode, @SecondDigitalCurrencyCode, @OperationType, @DateOfIssue, @CoefficientActive);";
+
+            op = Coefficients.GetInstance();
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
+            {
+                try
+                {
+                    sqlConnection.Open();
+
+                    int digitalCode = GetDigitalCurrencyCode(AlphabeticCurrencyCode);
+                    int secondDigitalCode = GetDigitalCurrencyCode(SecondAlphabeticCurrencyCode);
+                    string operationTypeStr = GetOperationType(OperationType);
+
+                    SqlCommand addCommand = new SqlCommand(addCoefficientQuery, sqlConnection);
+                    SqlParameter coefficient = new SqlParameter
+                    {
+                        ParameterName = "@Coefficient",
+                        Value = Coefficient
+                    };
+                    SqlParameter digitalCurrencyCode = new SqlParameter
+                    {
+                        ParameterName = "@DigitalCurrencyCode",
+                        Value = digitalCode
+                    };
+                    SqlParameter secondDigitalCurrencyCode = new SqlParameter
+                    {
+                        ParameterName = "@SecondDigitalCurrencyCode",
+                        Value = secondDigitalCode
+                    };
+                    SqlParameter operationType = new SqlParameter
+                    {
+                        ParameterName = "@OperationType",
+                        Value = operationTypeStr
+                    };
+                    SqlParameter dateOfIssue = new SqlParameter
+                    {
+                        ParameterName = "@DateOfIssue",
+                        Value = DateTime.Now
+                    };
+                    SqlParameter coefficientActive = new SqlParameter
+                    {
+                        ParameterName = "@CoefficientActive",
+                        Value = CoefficientActive
+                    };
+
+                    addCommand.Parameters.Add(coefficient);
+                    addCommand.Parameters.Add(digitalCurrencyCode);
+                    addCommand.Parameters.Add(secondDigitalCurrencyCode);
+                    addCommand.Parameters.Add(operationType);
+                    addCommand.Parameters.Add(dateOfIssue);
+                    addCommand.Parameters.Add(coefficientActive);
+
+                    addCommand.ExecuteNonQuery();
+
+                    sqlConnection.Close();
+
+                    Console.WriteLine($"Coefficient {Coefficient} with parameters - {AlphabeticCurrencyCode}/{SecondAlphabeticCurrencyCode} - {OperationType} has been added!\n");
                 }
                 catch (Exception ex)
                 {

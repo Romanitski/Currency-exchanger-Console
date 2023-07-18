@@ -40,17 +40,20 @@ namespace CurrencyExchangerConsole
             //addCurrencies.AddCurrenciesFunction(840, "USD", "US Dollar", "1");
             //addCurrencies.AddCurrenciesFunction(978, "EUR", "Euro", "1");
 
-            //addCoefficient.AddCoefficientFunction("1,011", "RUB", "Purchase", true);
-            //addCoefficient.AddCoefficientFunction("1,012", "RUB", "Sale", true);
-            addCoefficient.AddCoefficientFunction("1,013", "RUB", "Conversion", true);
+            //addCoefficient.AddCoefficientPurchaseSaleFunction("1,011", "RUB", "Purchase", true);
+            //addCoefficient.AddCoefficientPurchaseSaleFunction("1,012", "RUB", "Sale", true);
+            //addCoefficient.AddCoefficientConversionFunction("1,013", "RUB", "USD", "Conversion", true);
+            //addCoefficient.AddCoefficientConversionFunction("1,014", "RUB", "EUR", "Conversion", true);
 
-            //addCoefficient.AddCoefficientFunction("1,0132", "USD", "Purchase", true);
-            //addCoefficient.AddCoefficientFunction("1,0142", "USD", "Sale", true);
-            addCoefficient.AddCoefficientFunction("1,0152", "USD", "Conversion", true);
+            //addCoefficient.AddCoefficientPurchaseSaleFunction("1,0132", "USD", "Purchase", true);
+            //addCoefficient.AddCoefficientPurchaseSaleFunction("1,0142", "USD", "Sale", true);
+            //addCoefficient.AddCoefficientConversionFunction("1,0152", "USD", "RUB", "Conversion", true);
+            //addCoefficient.AddCoefficientConversionFunction("1,0153", "USD", "EUR", "Conversion", true);
 
-            //addCoefficient.AddCoefficientFunction("1,06", "EUR", "Purchase", true);
-            //addCoefficient.AddCoefficientFunction("1,07", "EUR", "Sale", true);
-            addCoefficient.AddCoefficientFunction("1,08", "EUR", "Conversion", true);
+            //addCoefficient.AddCoefficientPurchaseSaleFunction("1,06", "EUR", "Purchase", true);
+            //addCoefficient.AddCoefficientPurchaseSaleFunction("1,07", "EUR", "Sale", true);
+            //addCoefficient.AddCoefficientConversionFunction("1,08", "EUR", "RUB", "Conversion", true);
+            //addCoefficient.AddCoefficientConversionFunction("1,09", "EUR", "USD", "Conversion", true);
 
             //ratePurchase.AddRatePurchaseFunction("RUB", "3,01", DateTime.Now);
             //ratePurchase.AddRatePurchaseFunction("USD", "3,21", DateTime.Now);
@@ -60,7 +63,7 @@ namespace CurrencyExchangerConsole
             //rateSale.AddRateSaleFunction("USD", "3,02", DateTime.Now);
             //rateSale.AddRateSaleFunction("EUR", "3,15", DateTime.Now);
 
-            //rateConversion.AddRateConversionFunction("RUB", "3,52", DateTime.Now);
+            rateConversion.AddRateConversionFunction("RUB", "3,52", DateTime.Now);
         }
     }
 }
