@@ -76,9 +76,9 @@ namespace CurrencyExchangerConsole.Classes
             }
         }
 
-        private string GetCoefficient(string AlphabeticCurrencyCode, string OperationType)
+        private string GetCoefficient(string AlphabeticCurrencyCode, string SecondAlphabeticCurrencyCode, string OperationType)
         {
-            string getCoefficient = "SELECT Coefficient FROM Coefficients WHERE Digital_Currency_Code = @DigitalCode AND Operation_Type = @OperationType;";
+            string getCoefficient = "SELECT Coefficient FROM Coefficients WHERE Digital_Currency_Code = @DigitalCode AND Second_Digital_Currency_Code = @SecondDigitalCode AND Operation_Type = @OperationType;";
 
             using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
             {
@@ -87,12 +87,18 @@ namespace CurrencyExchangerConsole.Classes
                     sqlConnection.Open();
 
                     int digitalCode = GetDigitalCurrencyCode(AlphabeticCurrencyCode);
+                    int secondDigitalCode = GetDigitalCurrencyCode(SecondAlphabeticCurrencyCode);
 
                     SqlCommand commandGetCoefficient = new SqlCommand(getCoefficient, sqlConnection);
                     SqlParameter digitalCodeParameter = new SqlParameter
                     {
                         ParameterName = "@DigitalCode",
                         Value = digitalCode
+                    };
+                    SqlParameter secondDigitalCodeParameter = new SqlParameter
+                    {
+                        ParameterName = "@SecondDigitalCode",
+                        Value = secondDigitalCode
                     };
                     SqlParameter operationType = new SqlParameter
                     {
@@ -101,6 +107,7 @@ namespace CurrencyExchangerConsole.Classes
                     };
 
                     commandGetCoefficient.Parameters.Add(digitalCodeParameter);
+                    commandGetCoefficient.Parameters.Add(secondDigitalCodeParameter);
                     commandGetCoefficient.Parameters.Add(operationType);
 
                     object coefficientValue = commandGetCoefficient.ExecuteScalar();
@@ -119,9 +126,9 @@ namespace CurrencyExchangerConsole.Classes
             }
         }
 
-        public void AddRateConversionFunction(string AlphabeticCurrencyCode, string RateConversion, DateTime DateOfTheStartAction)
+        private int GetCoefficientId(string AlphabeticCurrencyCode, string SecondAlphabeticCurrencyCode, string OperationType, string coefficientValueStr)
         {
-            string addRateQuery = "INSERT INTO Rate_Of_Conversion VALUES(@OperatorId, @DigitalCurrencyCode, @RateConversion, @Coefficient, @DateOfIssue, @DateOfTheStartAction);";
+            string getCoefficientId = "SELECT CoefficientId FROM Coefficients WHERE Digital_Currency_Code = @DigitalCode AND Second_Digital_Currency_Code = @SecondDigitalCode AND Operation_Type = @OperationType AND Coefficient = @CoefficientValue;";
 
             using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
             {
@@ -130,8 +137,66 @@ namespace CurrencyExchangerConsole.Classes
                     sqlConnection.Open();
 
                     int digitalCode = GetDigitalCurrencyCode(AlphabeticCurrencyCode);
+                    int secondDigitalCode = GetDigitalCurrencyCode(SecondAlphabeticCurrencyCode);
+
+                    SqlCommand commandGetCoefficientId = new SqlCommand(getCoefficientId, sqlConnection);
+                    SqlParameter coefficient = new SqlParameter
+                    {
+                        ParameterName = "@CoefficientValue",
+                        Value = coefficientValueStr
+                    };
+                    SqlParameter digitalCodeParameter = new SqlParameter
+                    {
+                        ParameterName = "@DigitalCode",
+                        Value = digitalCode
+                    };
+                    SqlParameter secondDigitalCodeParameter = new SqlParameter
+                    {
+                        ParameterName = "@SecondDigitalCode",
+                        Value = secondDigitalCode
+                    };
+                    SqlParameter operationType = new SqlParameter
+                    {
+                        ParameterName = "@OperationType",
+                        Value = OperationType
+                    };
+
+                    commandGetCoefficientId.Parameters.Add(coefficient);
+                    commandGetCoefficientId.Parameters.Add(digitalCodeParameter);
+                    commandGetCoefficientId.Parameters.Add(secondDigitalCodeParameter);
+                    commandGetCoefficientId.Parameters.Add(operationType);
+
+                    object coefficientIdValue = commandGetCoefficientId.ExecuteScalar();
+
+                    int coefficientIdValueInt = Convert.ToInt32((coefficientIdValue));
+
+                    sqlConnection.Close();
+                    return (coefficientIdValueInt);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    sqlConnection.Close();
+                    return (0);
+                }
+            }
+        }
+
+        public void AddRateConversionFunction(string AlphabeticCurrencyCode, string SecondAlphabeticCurrencyCode, string RateConversion, DateTime DateOfTheStartAction)
+        {
+            string addRateQuery = "INSERT INTO Rate_Of_Conversion VALUES(@OperatorId, @DigitalCurrencyCode, @SecondDigitalCurrencyCode, @RateConversion, @CoefficientId, @DateOfIssue, @DateOfTheStartAction);";
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
+            {
+                try
+                {
+                    sqlConnection.Open();
+
+                    int digitalCode = GetDigitalCurrencyCode(AlphabeticCurrencyCode);
+                    int secondDigitalCode = GetDigitalCurrencyCode(SecondAlphabeticCurrencyCode);
                     int id = GetOperatorId("TestB");
-                    string coefficientValue = GetCoefficient(AlphabeticCurrencyCode, "D");
+                    string coefficientValue = GetCoefficient(AlphabeticCurrencyCode, SecondAlphabeticCurrencyCode, "D");
+                    int coefficientIdValue = GetCoefficientId(AlphabeticCurrencyCode, SecondAlphabeticCurrencyCode, "D", coefficientValue);
 
                     SqlCommand addRateCommand = new SqlCommand(addRateQuery, sqlConnection);
                     SqlParameter operatorId = new SqlParameter
@@ -144,6 +209,11 @@ namespace CurrencyExchangerConsole.Classes
                         ParameterName = "@DigitalCurrencyCode",
                         Value = digitalCode
                     };
+                    SqlParameter secondDigitalCodeParameter = new SqlParameter
+                    {
+                        ParameterName = "@SecondDigitalCurrencyCode",
+                        Value = secondDigitalCode
+                    };
                     SqlParameter rateConversion = new SqlParameter
                     {
                         ParameterName = "@RateConversion",
@@ -151,8 +221,8 @@ namespace CurrencyExchangerConsole.Classes
                     };
                     SqlParameter coefficient = new SqlParameter
                     {
-                        ParameterName = "@Coefficient",
-                        Value = coefficientValue
+                        ParameterName = "@CoefficientId",
+                        Value = coefficientIdValue
                     };
                     SqlParameter dateOfIssue = new SqlParameter
                     {
@@ -167,6 +237,7 @@ namespace CurrencyExchangerConsole.Classes
 
                     addRateCommand.Parameters.Add(operatorId);
                     addRateCommand.Parameters.Add(digitalCodeParameter);
+                    addRateCommand.Parameters.Add(secondDigitalCodeParameter);
                     addRateCommand.Parameters.Add(rateConversion);
                     addRateCommand.Parameters.Add(coefficient);
                     addRateCommand.Parameters.Add(dateOfIssue);
@@ -176,7 +247,7 @@ namespace CurrencyExchangerConsole.Classes
 
                     sqlConnection.Close();
 
-                    Console.WriteLine($"The conversion rate - {RateConversion} for the {AlphabeticCurrencyCode} currency were successfully added!");
+                    Console.WriteLine($"The conversion rate - {RateConversion} for the {AlphabeticCurrencyCode}/{SecondAlphabeticCurrencyCode} currency were successfully added!");
                 }
                 catch (Exception ex)
                 {

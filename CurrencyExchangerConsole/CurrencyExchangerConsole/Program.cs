@@ -63,7 +63,14 @@ namespace CurrencyExchangerConsole
             //rateSale.AddRateSaleFunction("USD", "3,02", DateTime.Now);
             //rateSale.AddRateSaleFunction("EUR", "3,15", DateTime.Now);
 
-            rateConversion.AddRateConversionFunction("RUB", "3,52", DateTime.Now);
+            //rateConversion.AddRateConversionFunction("RUB", "USD", "3,52", DateTime.Now);
+            //rateConversion.AddRateConversionFunction("RUB", "EUR", "3,32", DateTime.Now);
+
+            //rateConversion.AddRateConversionFunction("USD", "RUB", "3,32", DateTime.Now);
+            //rateConversion.AddRateConversionFunction("USD", "EUR", "3,32", DateTime.Now);
+
+            //rateConversion.AddRateConversionFunction("EUR", "RUB", "3,32", DateTime.Now);
+            //rateConversion.AddRateConversionFunction("EUR", "USD", "3,33", DateTime.Now);
         }
     }
 }
