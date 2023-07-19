@@ -178,7 +178,7 @@ namespace CurrencyExchangerConsole.Classes
 
         private int GetNewOperationId(int CurrencyCode)
         {
-            string getIdQuery = "SELECT MAX(Operation_Id) FROM Operations WHERE Digital_Currency_Code = @CurrencyCode;";
+            string getIdQuery = "SELECT MAX(Operation_Id) FROM Operations WHERE Digital_Currency_Code = @CurrencyCode AND Operation_Type = @OperationType;";
 
             using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
             {
@@ -186,14 +186,22 @@ namespace CurrencyExchangerConsole.Classes
                 {
                     sqlConnection.Open();
 
+                    string type = GetOperationType("Refill");
+
                     SqlCommand getIdCommand = new SqlCommand(getIdQuery, sqlConnection);
                     SqlParameter currencyCode = new SqlParameter
                     {
                         ParameterName = "@CurrencyCode",
                         Value = CurrencyCode
                     };
+                    SqlParameter operationType = new SqlParameter
+                    {
+                        ParameterName = "@OperationType",
+                        Value = type
+                    };
 
                     getIdCommand.Parameters.Add(currencyCode);
+                    getIdCommand.Parameters.Add(operationType);
 
                     object idValue = getIdCommand.ExecuteScalar();
 
@@ -212,7 +220,7 @@ namespace CurrencyExchangerConsole.Classes
 
         private int GetOperationId()
         {
-            string getIdQuery = "SELECT MAX(Operation_Id) FROM Operations;";
+            string getIdQuery = "SELECT MAX(Operation_Id) FROM Operations WHERE Operation_Type = @OperationType;";
 
             using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
             {
@@ -220,7 +228,16 @@ namespace CurrencyExchangerConsole.Classes
                 {
                     sqlConnection.Open();
 
+                    string type = GetOperationType("Refill");
+
                     SqlCommand getIdCommand = new SqlCommand(getIdQuery, sqlConnection);
+                    SqlParameter operationType = new SqlParameter
+                    {
+                        ParameterName = "@OperationType",
+                        Value = type
+                    };
+
+                    getIdCommand.Parameters.Add(operationType);
 
                     object idValue = getIdCommand.ExecuteScalar();
 
