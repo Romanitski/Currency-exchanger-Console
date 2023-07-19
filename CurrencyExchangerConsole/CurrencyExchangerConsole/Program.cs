@@ -21,6 +21,7 @@ namespace CurrencyExchangerConsole
             AddRatePurchase ratePurchase = new AddRatePurchase();
             AddRateSale rateSale = new AddRateSale();
             AddRateConversion rateConversion = new AddRateConversion();
+            OperationRefill refill = new OperationRefill();
 
             //registration.RegistrationFunction("TestA", "1234", "A", true);
             //registration.RegistrationFunction("TestB", "1234", "B", true);
@@ -40,7 +41,7 @@ namespace CurrencyExchangerConsole
             //addCurrencies.AddCurrenciesFunction(840, "USD", "US Dollar", "1");
             //addCurrencies.AddCurrenciesFunction(978, "EUR", "Euro", "1");
 
-            addCoefficient.AddCoefficientPurchaseSaleFunction("1,075", "RUB", "Purchase", true);
+            //addCoefficient.AddCoefficientPurchaseSaleFunction("1,075", "RUB", "Purchase", true);
             //addCoefficient.AddCoefficientPurchaseSaleFunction("1,012", "RUB", "Sale", true);
             //addCoefficient.AddCoefficientConversionFunction("1,029", "RUB", "USD", "Conversion", true);
             //addCoefficient.AddCoefficientConversionFunction("1,014", "RUB", "EUR", "Conversion", true);
@@ -71,6 +72,10 @@ namespace CurrencyExchangerConsole
 
             //rateConversion.AddRateConversionFunction("EUR", "RUB", "3,32", DateTime.Now);
             //rateConversion.AddRateConversionFunction("EUR", "USD", "3,33", DateTime.Now);
+
+            refill.RefillFinction("10000", "RUB");
+            refill.RefillFinction("10000", "USD");
+            refill.RefillFinction("10000", "EUR");
         }
     }
 }
