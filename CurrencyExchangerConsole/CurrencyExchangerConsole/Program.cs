@@ -22,6 +22,7 @@ namespace CurrencyExchangerConsole
             AddRateSale rateSale = new AddRateSale();
             AddRateConversion rateConversion = new AddRateConversion();
             OperationRefill refill = new OperationRefill();
+            ReportSale report = new ReportSale();
 
             //registration.RegistrationFunction("TestA", "1234", "A", true);
             //registration.RegistrationFunction("TestB", "1234", "B", true);
@@ -73,9 +74,11 @@ namespace CurrencyExchangerConsole
             //rateConversion.AddRateConversionFunction("EUR", "RUB", "3,32", DateTime.Now);
             //rateConversion.AddRateConversionFunction("EUR", "USD", "3,33", DateTime.Now);
 
-            refill.RefillFinction("10000", "RUB");
-            refill.RefillFinction("10000", "USD");
-            refill.RefillFinction("10000", "EUR");
+            //refill.RefillFinction("10000", "RUB");
+            //refill.RefillFinction("10000", "USD");
+            //refill.RefillFinction("10000", "EUR");
+
+            report.ReportFunction();
         }
     }
 }

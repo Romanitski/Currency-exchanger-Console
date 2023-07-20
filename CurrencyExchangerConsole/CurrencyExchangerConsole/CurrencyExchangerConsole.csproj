@@ -97,6 +97,7 @@
     <Compile Include="Classes\OperatorEditing.cs" />
     <Compile Include="Classes\PasswordHasher.cs" />
     <Compile Include="Classes\Registration.cs" />
+    <Compile Include="Classes\ReportSale.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

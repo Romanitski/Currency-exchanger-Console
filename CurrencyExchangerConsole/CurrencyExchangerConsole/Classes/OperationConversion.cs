@@ -237,7 +237,7 @@ namespace CurrencyExchangerConsole.Classes
                     sqlConnection.Open();
 
                     int digitalCode = GetDigitalCurrencyCode(AlphabeticCurrencyCode);
-                    int newId = GetNewOperationId(digitalCode); //нужно получить id той же операции но записать в таблицу банка на 1 больше; как итог всё сломается
+                    int newId = GetNewOperationId(digitalCode); //нужно получить id той же операции
 
                     string amountValue = GetAmountValue(digitalCode, newId);
 
