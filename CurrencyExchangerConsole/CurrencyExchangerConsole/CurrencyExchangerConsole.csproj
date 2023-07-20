@@ -91,6 +91,7 @@
     <Compile Include="Classes\Authorization.cs" />
     <Compile Include="Classes\Coefficients.cs" />
     <Compile Include="Classes\Currencies.cs" />
+    <Compile Include="Classes\OperationConversion.cs" />
     <Compile Include="Classes\OperationRefill.cs" />
     <Compile Include="Classes\Operator.cs" />
     <Compile Include="Classes\OperatorEditing.cs" />
