@@ -12,73 +12,64 @@ namespace CurrencyExchangerConsole
     {
         static void Main(string[] args)
         {
-            Operator user = new Operator();
-            Registration registration = new Registration();
-            Classes.Authorization authorization = new Classes.Authorization();
-            OperatorEditing operatorEditing = new OperatorEditing();
-            AddCurrencies addCurrencies = new AddCurrencies();
-            AddCoefficient addCoefficient = new AddCoefficient();
-            AddRatePurchase ratePurchase = new AddRatePurchase();
-            AddRateSale rateSale = new AddRateSale();
-            AddRateConversion rateConversion = new AddRateConversion();
-            OperationRefill refill = new OperationRefill();
-            ReportSale report = new ReportSale();
+            Operator opp = new Operator();
+            //opp.Registration("zdsfhuoasdif", "1234", "A");
+            //opp.Authorization("TestAff", "1234");
+            //opp.OperatorAllEditing("zdsfhuoasdif", "TestEditing", "1234", "A");
+            //opp.OperatorActiveEditing("TestEditing", false);
 
-            //registration.RegistrationFunction("TestA", "1234", "A", true);
-            //registration.RegistrationFunction("TestB", "1234", "B", true);
-            //registration.RegistrationFunction("TestC", "1234", "C", true);
-            //registration.RegistrationFunction("TestInActive", "1234", "A", false);
+            Coefficients coefficients = new Coefficients();
+            //coefficients.AddCoefficientConversion("1,029", "RUB", "USD", "Conversion");
+            //coefficients.AddCoefficientConversion("1,015", "RUB", "EUR", "Conversion");
+            //coefficients.AddCoefficientConversion("1,0152", "USD", "RUB", "Conversion");
+            //coefficients.AddCoefficientConversion("1,0153", "USD", "EUR", "Conversion");
+            //coefficients.AddCoefficientConversion("1,08", "EUR", "RUB", "Conversion");
+            //coefficients.AddCoefficientConversion("1,09", "EUR", "USD", "Conversion");
 
-            //authorization.AuthorizationFunction("TestA", "1234");
-            //authorization.AuthorizationFunction("TestB", "1234");
-            //authorization.AuthorizationFunction("TestC", "1234");
-            //authorization.AuthorizationFunction("TestInActive", "1234");
-            //authorization.AuthorizationFunction("TestError", "1234");
+            //coefficients.AddCoefficientPurchaseSale("1,076", "RUB", "Purchase");
+            //coefficients.AddCoefficientPurchaseSale("1,012", "RUB", "Sale");
+            //coefficients.AddCoefficientPurchaseSale("1,0132", "USD", "Purchase");
+            //coefficients.AddCoefficientPurchaseSale("1,0142", "USD", "Sale");
+            //coefficients.AddCoefficientPurchaseSale("1,06", "EUR", "Purchase");
+            //coefficients.AddCoefficientPurchaseSale("1,07", "EUR", "Sale");
 
-            //operatorEditing.OperatorActiveEditingfunction("TestInActive", false);
-            //operatorEditing.OperatorEditingFunction("TestInActive1", "TestInActive", "1234", "A");
+            Currencies currencies = new Currencies();
+            //currencies.AddNewCurrencies(643, "RUB", "Russian Ruble", "1/100");
+            //currencies.AddNewCurrencies(840, "USD", "US Dollar", "1");
+            //currencies.AddNewCurrencies(978, "EUR", "Euro", "1");
+            //currencies.AddNewCurrencies(933, "BYN", "Belarusian Ruble", "1");
 
-            //addCurrencies.AddCurrenciesFunction(643, "RUB", "Russian Ruble", "1/100");
-            //addCurrencies.AddCurrenciesFunction(840, "USD", "US Dollar", "1");
-            //addCurrencies.AddCurrenciesFunction(978, "EUR", "Euro", "1");
+            Rate rate = new Rate();
+            //rate.AddNewRateConversion("RUB", "USD", "3,52", DateTime.Now);
+            //rate.AddNewRateConversion("RUB", "EUR", "3,33", DateTime.Now);
+            //rate.AddNewRateConversion("USD", "RUB", "3,33", DateTime.Now);
+            //rate.AddNewRateConversion("USD", "EUR", "3,33", DateTime.Now);
+            //rate.AddNewRateConversion("EUR", "RUB", "3,33", DateTime.Now);
+            //rate.AddNewRateConversion("EUR", "USD", "3,34", DateTime.Now);
 
-            //addCoefficient.AddCoefficientPurchaseSaleFunction("1,075", "RUB", "Purchase", true);
-            //addCoefficient.AddCoefficientPurchaseSaleFunction("1,012", "RUB", "Sale", true);
-            //addCoefficient.AddCoefficientConversionFunction("1,029", "RUB", "USD", "Conversion", true);
-            //addCoefficient.AddCoefficientConversionFunction("1,014", "RUB", "EUR", "Conversion", true);
+            //rate.AddNewRatePurchase("RUB", "3", DateTime.Now);
+            //rate.AddNewRatePurchase("USD", "3,23", DateTime.Now);
+            //rate.AddNewRatePurchase("EUR", "3,45", DateTime.Now);
 
-            //addCoefficient.AddCoefficientPurchaseSaleFunction("1,0132", "USD", "Purchase", true);
-            //addCoefficient.AddCoefficientPurchaseSaleFunction("1,0142", "USD", "Sale", true);
-            //addCoefficient.AddCoefficientConversionFunction("1,0152", "USD", "RUB", "Conversion", true);
-            //addCoefficient.AddCoefficientConversionFunction("1,0153", "USD", "EUR", "Conversion", true);
+            //rate.AddNewRateSale("RUB", "2,96", DateTime.Now);
+            //rate.AddNewRateSale("USD", "3,03", DateTime.Now);
+            //rate.AddNewRateSale("EUR", "3,16", DateTime.Now);
 
-            //addCoefficient.AddCoefficientPurchaseSaleFunction("1,06", "EUR", "Purchase", true);
-            //addCoefficient.AddCoefficientPurchaseSaleFunction("1,07", "EUR", "Sale", true);
-            //addCoefficient.AddCoefficientConversionFunction("1,08", "EUR", "RUB", "Conversion", true);
-            //addCoefficient.AddCoefficientConversionFunction("1,09", "EUR", "USD", "Conversion", true);
+            Operation operation = new Operation();
+            //operation.Refill("5000", "RUB");
+            //operation.Refill("50000", "USD");
+            //operation.Refill("5000", "EUR");
+            //operation.Refill("5000", "BYN");
 
-            //ratePurchase.AddRatePurchaseFunction("RUB", "3,01", DateTime.Now);
-            //ratePurchase.AddRatePurchaseFunction("USD", "3,21", DateTime.Now);
-            //ratePurchase.AddRatePurchaseFunction("EUR", "3,47", DateTime.Now);
+            //operation.Conversion("10", "EUR", "USD");
+            //operation.Sale("50", "RUB");
+            //operation.Purchase("10", "EUR");
 
-            //rateSale.AddRateSaleFunction("RUB", "2,95", DateTime.Now);
-            //rateSale.AddRateSaleFunction("USD", "3,02", DateTime.Now);
-            //rateSale.AddRateSaleFunction("EUR", "3,15", DateTime.Now);
+            Report report = new Report();
+            //report.ReportSale();
 
-            //rateConversion.AddRateConversionFunction("RUB", "USD", "3,52", DateTime.Now);
-            //rateConversion.AddRateConversionFunction("RUB", "EUR", "3,32", DateTime.Now);
-
-            //rateConversion.AddRateConversionFunction("USD", "RUB", "3,32", DateTime.Now);
-            //rateConversion.AddRateConversionFunction("USD", "EUR", "3,32", DateTime.Now);
-
-            //rateConversion.AddRateConversionFunction("EUR", "RUB", "3,32", DateTime.Now);
-            //rateConversion.AddRateConversionFunction("EUR", "USD", "3,33", DateTime.Now);
-
-            //refill.RefillFinction("10000", "RUB");
-            //refill.RefillFinction("10000", "USD");
-            //refill.RefillFinction("10000", "EUR");
-
-            report.ReportFunction();
+            GetCurrencies test = new GetCurrencies();
+            test.GetAllCurrencies();
         }
     }
 }

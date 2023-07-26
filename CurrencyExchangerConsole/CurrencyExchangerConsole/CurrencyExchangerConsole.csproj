@@ -83,21 +83,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\AddCoefficient.cs" />
-    <Compile Include="Classes\AddCurrencies.cs" />
-    <Compile Include="Classes\AddRateConversion.cs" />
-    <Compile Include="Classes\AddRatePurchase.cs" />
-    <Compile Include="Classes\AddRateSale.cs" />
-    <Compile Include="Classes\Authorization.cs" />
     <Compile Include="Classes\Coefficients.cs" />
     <Compile Include="Classes\Currencies.cs" />
-    <Compile Include="Classes\OperationConversion.cs" />
-    <Compile Include="Classes\OperationRefill.cs" />
+    <Compile Include="Classes\Operation.cs" />
     <Compile Include="Classes\Operator.cs" />
-    <Compile Include="Classes\OperatorEditing.cs" />
     <Compile Include="Classes\PasswordHasher.cs" />
-    <Compile Include="Classes\Registration.cs" />
-    <Compile Include="Classes\ReportSale.cs" />
+    <Compile Include="Classes\Rate.cs" />
+    <Compile Include="Classes\Report.cs" />
+    <Compile Include="Classes\GetCurrencies.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
