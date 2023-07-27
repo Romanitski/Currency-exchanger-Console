@@ -287,7 +287,7 @@ namespace CurrencyExchangerConsole.Classes
 
         private string GetRatePurchase(int DigitalCode)
         {
-            string getRateQuery = "SELECT Rate_Purchase FROM Rate_Purchase WHERE Digital_Currency_Code = @DigitalCode AND Date_Of_The_Start_Action = (SELECT MAX(Date_Of_The_Start_Action) FROM Rate_Purchase WHERE Date_Of_The_Start_Action <= (SELECT SYSDATETIME()));";
+            string getRateQuery = "SELECT Rate_Purchase FROM Rate_Purchase WHERE Date_Of_The_Start_Action = (SELECT MAX(Date_Of_The_Start_Action) FROM Rate_Purchase WHERE Digital_Currency_Code = @DigitalCode AND Date_Of_The_Start_Action <= (SELECT SYSDATETIME()));";
 
             using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
             {
@@ -322,7 +322,7 @@ namespace CurrencyExchangerConsole.Classes
 
         private string GetRateConversion(int DigitalCode, int SecondDigitalCode)
         {
-            string getRateQuery = "SELECT Rate_Conversion FROM Rate_Of_Conversion WHERE Digital_Currency_Code = @DigitalCode AND Second_Digital_Currency_Code = @SecondDigitalCode AND Date_Of_The_Start_Action = (SELECT MAX(Date_Of_The_Start_Action) FROM Rate_Of_Conversion WHERE Date_Of_The_Start_Action <= (SELECT SYSDATETIME()));";
+            string getRateQuery = "SELECT Rate_Conversion FROM Rate_Of_Conversion WHERE Date_Of_The_Start_Action = (SELECT MAX(Date_Of_The_Start_Action) FROM Rate_Of_Conversion WHERE Digital_Currency_Code = @DigitalCode AND Second_Digital_Currency_Code = @SecondDigitalCode AND Date_Of_The_Start_Action <= (SELECT SYSDATETIME()));";
 
             using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
             {
@@ -610,7 +610,7 @@ namespace CurrencyExchangerConsole.Classes
 
         private string GetRateSale(int DigitalCode)
         {
-            string getRateQuery = "SELECT Rate_Sale FROM Rate_Sale WHERE Digital_Currency_Code = @DigitalCode AND Date_Of_The_Start_Action = (SELECT MAX(Date_Of_The_Start_Action) FROM Rate_Sale WHERE Date_Of_The_Start_Action <= (SELECT SYSDATETIME()));";
+            string getRateQuery = "SELECT Rate_Sale FROM Rate_Sale WHERE Date_Of_The_Start_Action = (SELECT MAX(Date_Of_The_Start_Action) FROM Rate_Sale WHERE Digital_Currency_Code = @DigitalCode AND Date_Of_The_Start_Action <= (SELECT SYSDATETIME()));";
 
             using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["CurrencyExchanger_db"].ConnectionString))
             {

@@ -62,14 +62,14 @@ namespace CurrencyExchangerConsole
             //operation.Refill("5000", "BYN");
 
             //operation.Conversion("10", "EUR", "USD");
-            //operation.Sale("50", "RUB");
+            //operation.Sale("50", "USD");
             //operation.Purchase("10", "EUR");
 
             Report report = new Report();
             //report.ReportSale();
 
             GetCurrencies test = new GetCurrencies();
-            test.GetAllCurrencies();
+            //test.GetAllCurrencies();
         }
     }
 }
